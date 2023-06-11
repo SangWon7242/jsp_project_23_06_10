@@ -247,6 +247,7 @@ public class MysqlUtil {
     return affectedRows;
   }
 
+
   public static int delete(SecSql sql) {
     return update(sql);
   }
