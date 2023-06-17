@@ -37,6 +37,8 @@ public class UsrArticleDoDeleteServlet extends HttpServlet {
     MysqlUtil.delete(sql);
 
     rq.appendBody("<script>alert('%d번 글이 삭제되었습니다.'); location.replace('list');</script>".formatted(id));
+
+    MysqlUtil.closeConnection();
   }
 
   @Override

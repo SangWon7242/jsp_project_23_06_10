@@ -44,4 +44,14 @@ public class Rq {
       throw new RuntimeException(e);
     }
   }
+
+  public String getParam(String paramName, String defaultValue) {
+    String value = req.getParameter(paramName);
+
+    if(value == null) {
+      return defaultValue;
+    }
+
+    return value;
+  }
 }
