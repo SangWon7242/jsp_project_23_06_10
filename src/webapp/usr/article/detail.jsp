@@ -46,8 +46,9 @@
   </table>
 
   <div>
-    <a href="doDelete?id=<%= (int) articleRow.get("id") %>">삭제하기</a>
-    <a href="list">리스트로 이동</a>
+    <a href="doDelete?id=${param.id}">삭제</a>
+    <a href="modify?id=${param.id}">수정</a>
+    <a href="list">리스트</a>
   </div>
 
 </body>
