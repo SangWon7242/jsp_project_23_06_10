@@ -1,10 +1,8 @@
 package com.sbs.exam.jsp.board.servlet;
 
 import com.sbs.exam.jsp.board.Rq;
-import com.sbs.exam.jsp.board.dto.Article;
 import com.sbs.exam.jsp.board.mysqlutil.MysqlUtil;
 import com.sbs.exam.jsp.board.mysqlutil.SecSql;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -47,8 +45,7 @@ public class UsrArticleListServlet extends HttpServlet {
     req.setAttribute("page", page);
     req.setAttribute("totalPage", totalPage);
 
-    RequestDispatcher requestDispatcher = req.getRequestDispatcher("../article/list.jsp");
-    requestDispatcher.forward(req, resp);
+    rq.jsp("../usr/article/list");
 
     MysqlUtil.closeConnection();
   }

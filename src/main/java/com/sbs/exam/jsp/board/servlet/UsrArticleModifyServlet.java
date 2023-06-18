@@ -38,8 +38,7 @@ public class UsrArticleModifyServlet extends HttpServlet {
 
     req.setAttribute("articleRow", articleRow);
 
-    RequestDispatcher requestDispatcher = req.getRequestDispatcher("../article/modify.jsp");
-    requestDispatcher.forward(req, resp);
+    rq.jsp("../usr/article/modify");
 
     MysqlUtil.closeConnection();
   }

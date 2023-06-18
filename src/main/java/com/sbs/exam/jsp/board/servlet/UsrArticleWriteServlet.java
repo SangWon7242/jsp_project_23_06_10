@@ -1,5 +1,6 @@
 package com.sbs.exam.jsp.board.servlet;
 
+import com.sbs.exam.jsp.board.Rq;
 import com.sbs.exam.jsp.board.mysqlutil.MysqlUtil;
 import com.sbs.exam.jsp.board.mysqlutil.SecSql;
 import jakarta.servlet.RequestDispatcher;
@@ -17,8 +18,8 @@ import java.util.Map;
 public class UsrArticleWriteServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    RequestDispatcher requestDispatcher = req.getRequestDispatcher("../article/write.jsp");
-    requestDispatcher.forward(req, resp);
+    Rq rq = new Rq(req, resp);
+    rq.jsp("../usr/article/write");
   }
 
   @Override

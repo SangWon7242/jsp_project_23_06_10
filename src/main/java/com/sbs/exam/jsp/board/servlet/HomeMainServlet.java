@@ -1,5 +1,6 @@
 package com.sbs.exam.jsp.board.servlet;
 
+import com.sbs.exam.jsp.board.Rq;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,8 +15,8 @@ public class HomeMainServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    RequestDispatcher requestDispatcher = req.getRequestDispatcher("/home/main.jsp");
-    requestDispatcher.forward(req, resp);
+    Rq rq = new Rq(req, resp);
+    rq.jsp("../home/main");
   }
 
   @Override

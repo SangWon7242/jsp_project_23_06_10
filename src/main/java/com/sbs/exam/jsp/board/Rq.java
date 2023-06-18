@@ -1,5 +1,7 @@
 package com.sbs.exam.jsp.board;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -53,5 +55,15 @@ public class Rq {
     }
 
     return value;
+  }
+
+  public void jsp(String jspPath) {
+    RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/" + jspPath + ".jsp");
+
+    try {
+      requestDispatcher.forward(req, resp);
+    } catch (ServletException | IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 }
