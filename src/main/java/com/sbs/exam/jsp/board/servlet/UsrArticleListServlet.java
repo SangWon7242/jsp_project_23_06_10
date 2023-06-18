@@ -22,14 +22,30 @@ public class UsrArticleListServlet extends HttpServlet {
     MysqlUtil.setDBInfo("localhost", "sbsst", "sbs123414", "jspboard");
     MysqlUtil.setDevMode(true);
 
+    Rq rq = new Rq(req, resp);
+
+    int page = rq.getIntParam("page", 1);
+    int itemInAPage = 20;
+    int limitFrom = (page - 1) * itemInAPage;
+
     SecSql sql = new SecSql();
+    sql.append("SELECT COUNT(*) AS cnt");
+    sql.append("FROM article");
+
+    int totalCount = MysqlUtil.selectRowIntValue(sql);
+    int totalPage = (int) Math.ceil((double) totalCount / itemInAPage);
+
+    sql = new SecSql();
     sql.append("SELECT A.*");
     sql.append("FROM article AS A");
     sql.append("ORDER BY A.id DESC");
+    sql.append("LIMIT ?, ?", limitFrom, itemInAPage);
 
     List<Map<String, Object>> articleRows = MysqlUtil.selectRows(sql);
 
     req.setAttribute("articleRows", articleRows);
+    req.setAttribute("page", page);
+    req.setAttribute("totalPage", totalPage);
 
     RequestDispatcher requestDispatcher = req.getRequestDispatcher("../article/list.jsp");
     requestDispatcher.forward(req, resp);
