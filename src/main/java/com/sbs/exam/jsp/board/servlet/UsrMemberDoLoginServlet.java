@@ -43,7 +43,7 @@ public class UsrMemberDoLoginServlet extends HttpServlet {
     }
 
     HttpSession session = req.getSession();
-    session.setAttribute("loginedMemberId", memberRow.get("loginId"));
+    session.setAttribute("loginedMemberId", memberRow.get("id"));
 
     rq.appendBody("<script>alert('%s 님 로그인 되었습니다.'); location.replace('/home/main');</script>".formatted(loginId));
 

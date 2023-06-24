@@ -1,7 +1,8 @@
 package com.sbs.exam.jsp.board.servlet;
 
 import com.sbs.exam.jsp.board.Rq;
-import jakarta.servlet.RequestDispatcher;
+import com.sbs.exam.jsp.board.mysqlutil.MysqlUtil;
+import com.sbs.exam.jsp.board.mysqlutil.SecSql;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,28 +11,19 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.Map;
 
-@WebServlet("/home/main")
-public class HomeMainServlet extends HttpServlet {
-
+@WebServlet("/usr/member/doLogout")
+public class UsrMemberDoLogoutServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
     Rq rq = new Rq(req, resp);
 
     HttpSession session = req.getSession();
+    session.removeAttribute("loginedMemberId");
 
-    boolean isLogined = false;
-    int loginedMemberId = -1;
-
-    if(session.getAttribute("loginedMemberId") != null) {
-      loginedMemberId = (int) session.getAttribute("loginedMemberId");
-      isLogined = true;
-    }
-
-    req.setAttribute("isLogined", isLogined);
-    req.setAttribute("loginedMemberId", loginedMemberId);
-
-    rq.jsp("../home/main");
+    rq.appendBody("<script>alert('로그아웃 되었습니다.'); location.replace('/home/main');</script>");
   }
 
   @Override
@@ -39,4 +31,3 @@ public class HomeMainServlet extends HttpServlet {
     doGet(req, resp);
   }
 }
-
