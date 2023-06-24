@@ -72,7 +72,7 @@
 
   <form action="doJoin" method="POST" onsubmit="JoinForm_submit(this); return false;">
     <div>
-      로그인 아이디 : <input type="text" name="loginId" placeholder="로그인 아이드를 입력해주세요.">
+      로그인 아이디 : <input type="text" name="loginId" placeholder="로그인 아이디를 입력해주세요.">
     </div>
     <div>
       로그인 비밀번호 : <input type="password" name="loginPw" placeholder="로그인 패스워드 입력해주세요.">

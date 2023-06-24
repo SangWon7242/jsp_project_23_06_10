@@ -1,7 +1,6 @@
 package com.sbs.exam.jsp.board.servlet;
 
 import com.sbs.exam.jsp.board.Rq;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,17 +9,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/home/main")
-public class HomeMainServlet extends HttpServlet {
-
+@WebServlet("/usr/member/login")
+public class UsrMemberLoginServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     Rq rq = new Rq(req, resp);
-
-    req.setAttribute("age", 22);
-    req.setAttribute("isLogined", true);
-
-    rq.jsp("../home/main");
+    rq.jsp("../usr/member/login");
   }
 
   @Override
@@ -28,4 +22,3 @@ public class HomeMainServlet extends HttpServlet {
     doGet(req, resp);
   }
 }
-
