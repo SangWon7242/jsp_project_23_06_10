@@ -25,6 +25,18 @@ public class UsrMemberDoJoinServlet extends HttpServlet {
     String name = rq.getParam("name", "");
 
     SecSql sql = new SecSql();
+    sql.append("SELECT COUNT(*) AS cnt");
+    sql.append("FROM `member`");
+    sql.append("WHERE loginId = ?", loginId);
+
+    boolean isJoinAvailable = MysqlUtil.selectRowIntValue(sql) == 0;
+
+    if(isJoinAvailable == false) {
+     rq.appendBody("<script>alert('%s (은)는 이미 사용중인 아이디입니다.'); history.back();</script>".formatted(loginId));
+     return;
+    }
+
+    sql = new SecSql();
     sql.append("INSERT INTO `member`");
     sql.append("SET regDate = NOW()");
     sql.append(", updateDate = NOW()");
