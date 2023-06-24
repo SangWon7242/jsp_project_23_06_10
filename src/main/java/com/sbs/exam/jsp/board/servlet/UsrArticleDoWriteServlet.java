@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -33,12 +34,22 @@ public class UsrArticleDoWriteServlet extends HttpServlet {
       return;
     }
 
+    HttpSession session = req.getSession();
+
+    if(session.getAttribute("loginedMemberId") == null) {
+      rq.appendBody("<script>alert('로그인 후 이용해주세요.'); location.replace('../member/login');</script>");
+      return;
+    }
+
+    int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+
     SecSql sql = new SecSql();
     sql.append("INSERT INTO article");
     sql.append("SET regDate = NOW()");
     sql.append(", updateDate = NOW()");
     sql.append(", title = ?", title);
     sql.append(", content = ?", content);
+    sql.append(", memberId = ?", loginedMemberId);
 
     int id = MysqlUtil.insert(sql);
 
