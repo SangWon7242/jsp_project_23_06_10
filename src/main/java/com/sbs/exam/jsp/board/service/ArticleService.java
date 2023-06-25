@@ -1,24 +1,24 @@
 package com.sbs.exam.jsp.board.service;
 
-import com.sbs.exam.jsp.board.mysqlutil.MysqlUtil;
-import com.sbs.exam.jsp.board.mysqlutil.SecSql;
+import com.sbs.exam.jsp.board.repository.ArticleRepository;
 
 import java.util.List;
 import java.util.Map;
 
 public class ArticleService {
 
+  private ArticleRepository articleRepository;
+
+  public ArticleService() {
+    articleRepository = new ArticleRepository();
+  }
+
   public int getItemInAPage() {
     return 20;
   }
   public int getForPrintListTotalPage() {
     int itemInAPage = getItemInAPage();
-
-    SecSql sql = new SecSql();
-    sql.append("SELECT COUNT(*) AS cnt");
-    sql.append("FROM article");
-
-    int totalCount = MysqlUtil.selectRowIntValue(sql);
+    int totalCount = articleRepository.getTotalCount();
     int totalPage = (int) Math.ceil((double) totalCount / itemInAPage);
 
     return totalPage;
@@ -28,13 +28,7 @@ public class ArticleService {
     int itemInAPage = getItemInAPage();
     int limitFrom = (page - 1) * itemInAPage;
 
-    SecSql sql = new SecSql();
-    sql.append("SELECT A.*");
-    sql.append("FROM article AS A");
-    sql.append("ORDER BY A.id DESC");
-    sql.append("LIMIT ?, ?", limitFrom, itemInAPage);
-
-    List<Map<String, Object>> articleRows = MysqlUtil.selectRows(sql);
+    List<Map<String, Object>> articleRows = articleRepository.getArticleRows(itemInAPage, limitFrom);
 
     return articleRows;
   }

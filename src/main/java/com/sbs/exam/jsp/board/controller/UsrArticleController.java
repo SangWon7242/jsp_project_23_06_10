@@ -1,8 +1,6 @@
 package com.sbs.exam.jsp.board.controller;
 
 import com.sbs.exam.jsp.board.Rq;
-import com.sbs.exam.jsp.board.mysqlutil.MysqlUtil;
-import com.sbs.exam.jsp.board.mysqlutil.SecSql;
 import com.sbs.exam.jsp.board.service.ArticleService;
 
 import java.util.List;

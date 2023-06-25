@@ -28,7 +28,7 @@ public class DispatcherServlet extends HttpServlet {
 
     int minBitsCount = 4;
 
-    if(requestUriBits.length < minBitsCount) {
+    if (requestUriBits.length < minBitsCount) {
       rq.appendBody("올바른 요청이 아닙니다.");
       return;
     }
@@ -41,8 +41,6 @@ public class DispatcherServlet extends HttpServlet {
     String controllerName = requestUriBits[controllerNameIndex];
     String actionMethodName = requestUriBits[actionMethodNameIndex];
 
-    System.out.printf("%s/%s/%s\n", controllerTypeName, controllerName, actionMethodName);
-
     // 모든 요청을 들어가기 전에 무조건 해야 하는 일 시작
     HttpSession session = req.getSession();
 
@@ -50,7 +48,7 @@ public class DispatcherServlet extends HttpServlet {
     int loginedMemberId = -1;
     Map<String, Object> loginedMemberRow = null;
 
-    if(session.getAttribute("loginedMemberId") != null) {
+    if (session.getAttribute("loginedMemberId") != null) {
       loginedMemberId = (int) session.getAttribute("loginedMemberId");
       isLogined = true;
 
@@ -72,7 +70,6 @@ public class DispatcherServlet extends HttpServlet {
         usrArticleController.actionList();
       }
     }
-
 
     MysqlUtil.closeConnection();
   }
