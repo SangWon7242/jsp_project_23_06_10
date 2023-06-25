@@ -66,4 +66,8 @@ public class Rq {
       throw new RuntimeException(e);
     }
   }
+
+  public void setAttr(String key, Object value) {
+    req.setAttribute(key, value);
+  }
 }

@@ -1,6 +1,7 @@
 package com.sbs.exam.jsp.board.servlet;
 
 import com.sbs.exam.jsp.board.Rq;
+import com.sbs.exam.jsp.board.controller.UsrArticleController;
 import com.sbs.exam.jsp.board.mysqlutil.MysqlUtil;
 import com.sbs.exam.jsp.board.mysqlutil.SecSql;
 import jakarta.servlet.ServletException;
@@ -11,11 +12,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
-@WebServlet("/article/list")
-public class UsrArticleListServlet extends HttpServlet {
+@WebServlet("/usr/*")
+public class DispatcherServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     MysqlUtil.setDBInfo("localhost", "sbsst", "sbs123414", "jspboard");
@@ -23,7 +23,27 @@ public class UsrArticleListServlet extends HttpServlet {
 
     Rq rq = new Rq(req, resp);
 
-    // 공통 속성 시작
+    String requestUri = req.getRequestURI();
+    String[] requestUriBits = requestUri.split("/");
+
+    int minBitsCount = 4;
+
+    if(requestUriBits.length < minBitsCount) {
+      rq.appendBody("올바른 요청이 아닙니다.");
+      return;
+    }
+
+    int controllerTypeNameIndex = 1;
+    int controllerNameIndex = 2;
+    int actionMethodNameIndex = 3;
+
+    String controllerTypeName = requestUriBits[controllerTypeNameIndex];
+    String controllerName = requestUriBits[controllerNameIndex];
+    String actionMethodName = requestUriBits[actionMethodNameIndex];
+
+    System.out.printf("%s/%s/%s\n", controllerTypeName, controllerName, actionMethodName);
+
+    // 모든 요청을 들어가기 전에 무조건 해야 하는 일 시작
     HttpSession session = req.getSession();
 
     boolean isLogined = false;
@@ -43,32 +63,16 @@ public class UsrArticleListServlet extends HttpServlet {
     req.setAttribute("isLogined", isLogined);
     req.setAttribute("loginedMemberId", loginedMemberId);
     req.setAttribute("loginedMemberRow", loginedMemberRow);
-    // 공통 속성 끝
+    // 모든 요청을 들어가기 전에 무조건 해야 하는 일 끝
 
-    int page = rq.getIntParam("page", 1);
-    int itemInAPage = 20;
-    int limitFrom = (page - 1) * itemInAPage;
+    if (controllerName.equals("article")) {
+      UsrArticleController usrArticleController = new UsrArticleController(rq);
 
-    SecSql sql = new SecSql();
-    sql.append("SELECT COUNT(*) AS cnt");
-    sql.append("FROM article");
+      if (actionMethodName.equals("list")) {
+        usrArticleController.actionList();
+      }
+    }
 
-    int totalCount = MysqlUtil.selectRowIntValue(sql);
-    int totalPage = (int) Math.ceil((double) totalCount / itemInAPage);
-
-    sql = new SecSql();
-    sql.append("SELECT A.*");
-    sql.append("FROM article AS A");
-    sql.append("ORDER BY A.id DESC");
-    sql.append("LIMIT ?, ?", limitFrom, itemInAPage);
-
-    List<Map<String, Object>> articleRows = MysqlUtil.selectRows(sql);
-
-    req.setAttribute("articleRows", articleRows);
-    req.setAttribute("page", page);
-    req.setAttribute("totalPage", totalPage);
-
-    rq.jsp("../article/list");
 
     MysqlUtil.closeConnection();
   }
