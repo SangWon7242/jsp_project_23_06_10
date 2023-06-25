@@ -16,8 +16,10 @@
   <title>JSP BOARD - 게시물 상세보기</title>
 </head>
 <body>
-
   <h1>게시물 상세보기</h1>
+
+  <%@include file="../part/topBar.jspf"%>
+
   <table border="1" style="border-collapse: collapse; text-align: center;">
     <colgroup>
       <col width="50px">

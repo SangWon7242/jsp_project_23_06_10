@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/usr/member/doJoin")
+@WebServlet("/member/doJoin")
 public class UsrMemberDoJoinServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -46,7 +46,7 @@ public class UsrMemberDoJoinServlet extends HttpServlet {
 
     int id = MysqlUtil.insert(sql);
 
-    rq.appendBody("<script>alert('%d번 회원이 생성되었습니다.'); location.replace('/home/main');</script>".formatted(id, id));
+    rq.appendBody("<script>alert('%d번 회원이 생성되었습니다.'); location.replace('../home/main');</script>".formatted(id, id));
 
     MysqlUtil.closeConnection();
   }

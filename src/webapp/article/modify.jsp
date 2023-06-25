@@ -19,6 +19,8 @@ Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("art
 
   <h1>게시물 수정</h1>
 
+  <%@include file="../part/topBar.jspf"%>
+
   <form action="doModify" method="POST">
     <input type="hidden" name="id" value="<%= Integer.parseInt(request.getParameter("id")) %>">
 

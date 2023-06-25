@@ -9,12 +9,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/usr/article/detail")
+@WebServlet("/article/detail")
 public class UsrArticleDetailServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,6 +23,28 @@ public class UsrArticleDetailServlet extends HttpServlet {
     MysqlUtil.setDevMode(true);
 
     Rq rq = new Rq(req, resp);
+
+    // 공통 속성 시작
+    HttpSession session = req.getSession();
+
+    boolean isLogined = false;
+    int loginedMemberId = -1;
+    Map<String, Object> loginedMemberRow = null;
+
+    if(session.getAttribute("loginedMemberId") != null) {
+      loginedMemberId = (int) session.getAttribute("loginedMemberId");
+      isLogined = true;
+
+      SecSql sql = new SecSql();
+      sql.append("SELECT * FROM `member`");
+      sql.append("WHERE id = ?", loginedMemberId);
+      loginedMemberRow = MysqlUtil.selectRow(sql);
+    }
+
+    req.setAttribute("isLogined", isLogined);
+    req.setAttribute("loginedMemberId", loginedMemberId);
+    req.setAttribute("loginedMemberRow", loginedMemberRow);
+    // 공통 속성 끝
 
     int id = rq.getIntParam("id", 0);
 

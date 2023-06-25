@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Map;
 
-@WebServlet("/usr/member/doLogin")
+@WebServlet("/member/doLogin")
 public class UsrMemberDoLoginServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -45,7 +45,7 @@ public class UsrMemberDoLoginServlet extends HttpServlet {
     HttpSession session = req.getSession();
     session.setAttribute("loginedMemberId", memberRow.get("id"));
 
-    rq.appendBody("<script>alert('%s 님 로그인 되었습니다.'); location.replace('/home/main');</script>".formatted(loginId));
+    rq.appendBody("<script>alert('%s 님 로그인 되었습니다.'); location.replace('../home/main');</script>".formatted(loginId));
 
     MysqlUtil.closeConnection();
   }

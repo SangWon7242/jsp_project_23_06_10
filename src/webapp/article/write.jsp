@@ -13,6 +13,8 @@
 
   <h1>게시물 작성</h1>
 
+  <%@include file="../part/topBar.jspf"%>
+
   <form action="doWrite" method="POST">
     <div>
       제목 : <input autocomplete="off" type="text" name="title" placeholder="제목을 입력해주세요.">

@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Map;
 
-@WebServlet("/usr/member/doLogout")
+@WebServlet("/member/doLogout")
 public class UsrMemberDoLogoutServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,7 +23,7 @@ public class UsrMemberDoLogoutServlet extends HttpServlet {
     HttpSession session = req.getSession();
     session.removeAttribute("loginedMemberId");
 
-    rq.appendBody("<script>alert('로그아웃 되었습니다.'); location.replace('/home/main');</script>");
+    rq.appendBody("<script>alert('로그아웃 되었습니다.'); location.replace('../home/main');</script>");
   }
 
   @Override

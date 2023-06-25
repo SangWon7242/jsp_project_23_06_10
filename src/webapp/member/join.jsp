@@ -70,6 +70,8 @@
 
   <h1>회원가입</h1>
 
+  <%@include file="../part/topBar.jspf"%>
+
   <form action="doJoin" method="POST" onsubmit="JoinForm_submit(this); return false;">
     <div>
       로그인 아이디 : <input type="text" name="loginId" placeholder="로그인 아이디를 입력해주세요.">

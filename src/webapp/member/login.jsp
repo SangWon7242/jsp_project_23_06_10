@@ -44,6 +44,7 @@
   </script>
 
   <h1>로그인</h1>
+  <%@include file="../part/topBar.jspf"%>
 
   <form action="doLogin" method="POST" onsubmit="LoginForm_submit(this); return false;">
     <div>
