@@ -23,24 +23,6 @@ public class DispatcherServlet extends HttpServlet {
 
     Rq rq = new Rq(req, resp);
 
-    String requestUri = req.getRequestURI();
-    String[] requestUriBits = requestUri.split("/");
-
-    int minBitsCount = 4;
-
-    if (requestUriBits.length < minBitsCount) {
-      rq.appendBody("올바른 요청이 아닙니다.");
-      return;
-    }
-
-    int controllerTypeNameIndex = 1;
-    int controllerNameIndex = 2;
-    int actionMethodNameIndex = 3;
-
-    String controllerTypeName = requestUriBits[controllerTypeNameIndex];
-    String controllerName = requestUriBits[controllerNameIndex];
-    String actionMethodName = requestUriBits[actionMethodNameIndex];
-
     // 모든 요청을 들어가기 전에 무조건 해야 하는 일 시작
     HttpSession session = req.getSession();
 
@@ -63,12 +45,14 @@ public class DispatcherServlet extends HttpServlet {
     req.setAttribute("loginedMemberRow", loginedMemberRow);
     // 모든 요청을 들어가기 전에 무조건 해야 하는 일 끝
 
-    if (controllerName.equals("article")) {
-      UsrArticleController usrArticleController = new UsrArticleController(rq);
-
-      if (actionMethodName.equals("list")) {
-        usrArticleController.actionList();
-      }
+    switch (rq.getControllerTypeName()) {
+      case "usr":
+        UsrArticleController usrArticleController = new UsrArticleController();
+        switch (rq.getControllerName()) {
+          case "article":
+            usrArticleController.performAction(rq);
+            break;
+        }
     }
 
     MysqlUtil.closeConnection();

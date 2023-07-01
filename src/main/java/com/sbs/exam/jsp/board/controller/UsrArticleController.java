@@ -5,18 +5,24 @@ import com.sbs.exam.jsp.board.dto.Article;
 import com.sbs.exam.jsp.board.service.ArticleService;
 
 import java.util.List;
-import java.util.Map;
 
-public class UsrArticleController {
-  private Rq rq;
+public class UsrArticleController extends Controller {
   private ArticleService articleService;
 
-  public UsrArticleController(Rq rq) {
-    this.rq = rq;
+  public UsrArticleController() {
     articleService = new ArticleService();
   }
 
-  public void actionList() {
+  @Override
+  public void performAction(Rq rq) {
+    switch (rq.getActionMethodName()) {
+      case "list":
+        actionList(rq);
+        break;
+    }
+  }
+
+  public void actionList(Rq rq) {
     int page = rq.getIntParam("page", 1);
     int totalPage = articleService.getForPrintListTotalPage();
     List<Article> articles = articleService.getForPrintArticleRows(page);
