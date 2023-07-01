@@ -16,6 +16,8 @@
   <%@include file="../part/topBar.jspf"%>
 
   <form action="doWrite" method="POST">
+    <input type="hidden" name="redirectUri" value="../article/detail?id=[NEW_ID]" />
+
     <div>
       제목 : <input autocomplete="off" type="text" name="title" placeholder="제목을 입력해주세요.">
     </div>
