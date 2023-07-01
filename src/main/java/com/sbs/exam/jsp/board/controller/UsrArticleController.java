@@ -4,9 +4,12 @@ import com.sbs.exam.jsp.board.Rq;
 import com.sbs.exam.jsp.board.dto.Article;
 import com.sbs.exam.jsp.board.dto.ResultData;
 import com.sbs.exam.jsp.board.service.ArticleService;
+import com.sbs.exam.jsp.board.util.MysqlUtil;
+import com.sbs.exam.jsp.board.util.SecSql;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
+import java.util.Map;
 
 public class UsrArticleController extends Controller {
   private ArticleService articleService;
@@ -24,10 +27,26 @@ public class UsrArticleController extends Controller {
         actionWrite(rq);
       case "doWrite":
         actionDoWrite(rq);
+      case "detail":
+        actionDetail(rq);        
       default:
         rq.println("존재하지 않는 페이지 입니다.");
         break;
     }
+  }
+
+  private void actionDetail(Rq rq) {
+    int id = rq.getIntParam("id", 0);
+
+    if(id == 0) {
+      rq.historyBack("잘못 된 요청입니다.");
+      return;
+    }
+
+    Article article = articleService.getForPrintArticleById(id);
+    rq.setAttr("article", article);
+
+    rq.jsp("../article/detail");
   }
 
   private void actionWrite(Rq rq) {

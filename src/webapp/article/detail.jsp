@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ page import="java.util.Map" %>
+<%@ page import="com.sbs.exam.jsp.board.dto.Article" %>
 
 <%
-  Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("articleRow");
+  Article article = (Article) request.getAttribute("article");
 %>
 
 <!doctype html>
@@ -38,11 +38,11 @@
     </thead>
     <tbody>
       <tr>
-        <td><%= articleRow.get("id") %>번</td>
-        <td><%= articleRow.get("regDate") %></td>
-        <td><%= articleRow.get("updateDate") %></td>
-        <td><%= articleRow.get("title") %></td>
-        <td><%= articleRow.get("content") %></td>
+        <td><%= article.getId() %>번</td>
+        <td><%= article.getRegDate() %></td>
+        <td><%= article.getUpdateDate() %></td>
+        <td><%= article.getTitle() %></td>
+        <td><%= article.getContent() %></td>
       </tr>
     </tbody>
   </table>

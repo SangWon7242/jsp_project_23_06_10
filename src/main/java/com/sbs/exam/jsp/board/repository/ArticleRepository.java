@@ -50,4 +50,13 @@ public class ArticleRepository {
 
     return id;
   }
+
+  public Article getForPrintArticleById(int id) {
+    SecSql sql = new SecSql();
+    sql.append("SELECT *");
+    sql.append("FROM article");
+    sql.append("WHERE id = ?", id);
+
+    return new Article(MysqlUtil.selectRow(sql));
+  }
 }
