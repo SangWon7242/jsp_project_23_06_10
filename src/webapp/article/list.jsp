@@ -2,9 +2,10 @@
 
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="com.sbs.exam.jsp.board.dto.Article" %>
 
 <%
-  List<Map<String, Object>> articleRows = (List<Map<String, Object>>) request.getAttribute("articleRows");
+  List<Article> articles = (List<Article>) request.getAttribute("articles");
   int cPage = (int) request.getAttribute("page");
   int totalPage = (int) request.getAttribute("totalPage");
 %>
@@ -44,14 +45,14 @@
       </tr>
     </thead>
     <tbody>
-    <% for( Map<String, Object> articleRow : articleRows) { %>
+    <% for( Article article : articles) { %>
       <tr>
-        <td><%= articleRow.get("id") %>번</td>
-        <td><%= articleRow.get("regDate") %></td>
-        <td><%= articleRow.get("updateDate") %></td>
+        <td><%= article.getId() %>번</td>
+        <td><%= article.getRegDate() %></td>
+        <td><%= article.getUpdateDate() %></td>
         <td>
-          <a href="detail?id=<%= (int)articleRow.get("id")%>">
-            <%= articleRow.get("title") %>
+          <a href="detail?id=<%= article.getId() %>">
+            <%= article.getTitle() %>
           </a>
         </td>
       </tr>

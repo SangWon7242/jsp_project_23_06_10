@@ -1,9 +1,9 @@
 package com.sbs.exam.jsp.board.service;
 
+import com.sbs.exam.jsp.board.dto.Article;
 import com.sbs.exam.jsp.board.repository.ArticleRepository;
 
 import java.util.List;
-import java.util.Map;
 
 public class ArticleService {
 
@@ -24,11 +24,11 @@ public class ArticleService {
     return totalPage;
   }
 
-  public List<Map<String, Object>> getForPrintArticleRows(int page) {
+  public List<Article> getForPrintArticleRows(int page) {
     int itemInAPage = getItemInAPage();
     int limitFrom = (page - 1) * itemInAPage;
 
-    List<Map<String, Object>> articleRows = articleRepository.getArticleRows(itemInAPage, limitFrom);
+    List<Article> articleRows = articleRepository.getArticleRows(itemInAPage, limitFrom);
 
     return articleRows;
   }

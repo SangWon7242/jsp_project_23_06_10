@@ -1,8 +1,10 @@
 package com.sbs.exam.jsp.board.repository;
 
+import com.sbs.exam.jsp.board.dto.Article;
 import com.sbs.exam.jsp.board.mysqlutil.MysqlUtil;
 import com.sbs.exam.jsp.board.mysqlutil.SecSql;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +19,7 @@ public class ArticleRepository {
     return totalCount;
   }
 
-  public List<Map<String, Object>> getArticleRows(int itemInAPage, int limitFrom) {
+  public List<Article> getArticleRows(int itemInAPage, int limitFrom) {
     SecSql sql = new SecSql();
     sql.append("SELECT A.*");
     sql.append("FROM article AS A");
@@ -26,6 +28,12 @@ public class ArticleRepository {
 
     List<Map<String, Object>> articleRows = MysqlUtil.selectRows(sql);
 
-    return articleRows;
+    List<Article> articles = new ArrayList<>();
+
+    for(Map<String, Object> articleRow : articleRows) {
+      articles.add(new Article(articleRow));
+    }
+
+    return articles;
   }
 }
