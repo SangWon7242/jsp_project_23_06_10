@@ -1,4 +1,4 @@
-package com.sbs.exam.jsp.board.mysqlutil;
+package com.sbs.exam.jsp.board.util;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;

@@ -32,4 +32,8 @@ public class ArticleService {
 
     return articleRows;
   }
+
+  public int write(String title, String content, int loginedMemberId) {
+    return articleRepository.write(title, content, loginedMemberId);
+  }
 }

@@ -1,9 +1,8 @@
 package com.sbs.exam.jsp.board.servlet;
 
 import com.sbs.exam.jsp.board.Rq;
-import com.sbs.exam.jsp.board.mysqlutil.MysqlUtil;
-import com.sbs.exam.jsp.board.mysqlutil.SecSql;
-import jakarta.servlet.RequestDispatcher;
+import com.sbs.exam.jsp.board.util.MysqlUtil;
+import com.sbs.exam.jsp.board.util.SecSql;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

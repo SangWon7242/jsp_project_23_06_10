@@ -1,9 +1,8 @@
 package com.sbs.exam.jsp.board.servlet;
 
 import com.sbs.exam.jsp.board.Rq;
-import com.sbs.exam.jsp.board.mysqlutil.MysqlUtil;
-import com.sbs.exam.jsp.board.mysqlutil.SecSql;
-import jakarta.servlet.RequestDispatcher;
+import com.sbs.exam.jsp.board.util.MysqlUtil;
+import com.sbs.exam.jsp.board.util.SecSql;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,7 +11,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 @WebServlet("/article/detail")
@@ -49,7 +47,7 @@ public class UsrArticleDetailServlet extends HttpServlet {
     int id = rq.getIntParam("id", 0);
 
     if(id == 0) {
-      rq.appendBody("<script>alert('잘못 된 요청입니다.'); history.back();</script>");
+      rq.print("<script>alert('잘못 된 요청입니다.'); history.back();</script>");
       return;
     }
 

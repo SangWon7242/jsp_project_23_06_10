@@ -1,9 +1,11 @@
 package com.sbs.exam.jsp.board;
 
+import com.sbs.exam.jsp.board.util.Util;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import lombok.Getter;
 import lombok.ToString;
 
@@ -12,7 +14,9 @@ import java.io.UnsupportedEncodingException;
 
 @ToString
 public class Rq {
+  @Getter
   private final HttpServletRequest req;
+  @Getter
   private final HttpServletResponse resp;
   @Getter
   private boolean isInvalid = false;
@@ -68,12 +72,34 @@ public class Rq {
     }
   }
 
-  public void appendBody(String str) {
+  public void print(String str) {
     try {
       resp.getWriter().append(str);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  public void println(String str) {
+    print(str + "\n");
+  }
+
+  public void printf(String format, Object... args) {
+    print(Util.f(format, args));
+  }
+
+  public void historyBack(String msg) {
+    println("<script>");
+    printf("alert('%s');\n", msg);
+    printf("history.back();");
+    println("</script>");
+  }
+
+  public void locationReplace(String msg, String url) {
+    println("<script>");
+    printf("alert('%s');\n", msg);
+    printf("location.replace('%s');", url);
+    println("</script>");
   }
 
   public String getParam(String paramName, String defaultValue) {

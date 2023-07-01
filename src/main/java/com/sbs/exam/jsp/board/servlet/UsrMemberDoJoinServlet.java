@@ -1,8 +1,8 @@
 package com.sbs.exam.jsp.board.servlet;
 
 import com.sbs.exam.jsp.board.Rq;
-import com.sbs.exam.jsp.board.mysqlutil.MysqlUtil;
-import com.sbs.exam.jsp.board.mysqlutil.SecSql;
+import com.sbs.exam.jsp.board.util.MysqlUtil;
+import com.sbs.exam.jsp.board.util.SecSql;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -32,7 +32,7 @@ public class UsrMemberDoJoinServlet extends HttpServlet {
     boolean isJoinAvailable = MysqlUtil.selectRowIntValue(sql) == 0;
 
     if(isJoinAvailable == false) {
-     rq.appendBody("<script>alert('%s (은)는 이미 사용중인 아이디입니다.'); history.back();</script>".formatted(loginId));
+     rq.print("<script>alert('%s (은)는 이미 사용중인 아이디입니다.'); history.back();</script>".formatted(loginId));
      return;
     }
 
@@ -46,7 +46,7 @@ public class UsrMemberDoJoinServlet extends HttpServlet {
 
     int id = MysqlUtil.insert(sql);
 
-    rq.appendBody("<script>alert('%d번 회원이 생성되었습니다.'); location.replace('../home/main');</script>".formatted(id, id));
+    rq.print("<script>alert('%d번 회원이 생성되었습니다.'); location.replace('../home/main');</script>".formatted(id, id));
 
     MysqlUtil.closeConnection();
   }

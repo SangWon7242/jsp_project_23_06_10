@@ -1,7 +1,7 @@
 package com.sbs.exam.jsp.board;
 
-import com.sbs.exam.jsp.board.mysqlutil.MysqlUtil;
-import com.sbs.exam.jsp.board.mysqlutil.SecSql;
+import com.sbs.exam.jsp.board.util.MysqlUtil;
+import com.sbs.exam.jsp.board.util.SecSql;
 
 import java.util.List;
 import java.util.Map;

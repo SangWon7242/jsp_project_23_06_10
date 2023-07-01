@@ -1,8 +1,8 @@
 package com.sbs.exam.jsp.board.repository;
 
 import com.sbs.exam.jsp.board.dto.Article;
-import com.sbs.exam.jsp.board.mysqlutil.MysqlUtil;
-import com.sbs.exam.jsp.board.mysqlutil.SecSql;
+import com.sbs.exam.jsp.board.util.MysqlUtil;
+import com.sbs.exam.jsp.board.util.SecSql;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,5 +35,19 @@ public class ArticleRepository {
     }
 
     return articles;
+  }
+
+  public int write(String title, String content, int loginedMemberId) {
+    SecSql sql = new SecSql();
+    sql.append("INSERT INTO article");
+    sql.append("SET regDate = NOW()");
+    sql.append(", updateDate = NOW()");
+    sql.append(", title = ?", title);
+    sql.append(", content = ?", content);
+    sql.append(", memberId = ?", loginedMemberId);
+
+    int id = MysqlUtil.insert(sql);
+
+    return id;
   }
 }
