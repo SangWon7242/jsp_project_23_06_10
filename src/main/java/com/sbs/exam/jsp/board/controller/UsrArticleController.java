@@ -2,6 +2,7 @@ package com.sbs.exam.jsp.board.controller;
 
 import com.sbs.exam.jsp.board.Rq;
 import com.sbs.exam.jsp.board.dto.Article;
+import com.sbs.exam.jsp.board.dto.ResultData;
 import com.sbs.exam.jsp.board.service.ArticleService;
 import jakarta.servlet.http.HttpSession;
 
@@ -46,17 +47,16 @@ public class UsrArticleController extends Controller {
     }
 
     HttpSession session = rq.getReq().getSession();
+    int loginedMemberId = (int) session.getAttribute("loginedMemberId");
 
     if(session.getAttribute("loginedMemberId") == null) {
       rq.locationReplace("로그인 후 이용해주세요.", "../member/login");
       return;
     }
 
-    int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+    ResultData writeRd = articleService.write(title, content, loginedMemberId);
 
-    int id = articleService.write(title, content, loginedMemberId);;
-
-    rq.print("<script>alert('%d번 글이 생성되었습니다.'); location.replace('detail?id=%d');</script>".formatted(id, id));
+    rq.printf(writeRd.getMsg());
   }
 
   public void actionList(Rq rq) {

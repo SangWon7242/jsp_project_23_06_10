@@ -1,7 +1,9 @@
 package com.sbs.exam.jsp.board.service;
 
 import com.sbs.exam.jsp.board.dto.Article;
+import com.sbs.exam.jsp.board.dto.ResultData;
 import com.sbs.exam.jsp.board.repository.ArticleRepository;
+import com.sbs.exam.jsp.board.util.Util;
 
 import java.util.List;
 
@@ -33,7 +35,9 @@ public class ArticleService {
     return articleRows;
   }
 
-  public int write(String title, String content, int loginedMemberId) {
-    return articleRepository.write(title, content, loginedMemberId);
+  public ResultData write(String title, String content, int loginedMemberId) {
+    int id = articleRepository.write(title, content, loginedMemberId);
+
+    return ResultData.from("S-1", Util.f("%d번 게시물이 생성되었습니다.", id), "id", id);
   }
 }
