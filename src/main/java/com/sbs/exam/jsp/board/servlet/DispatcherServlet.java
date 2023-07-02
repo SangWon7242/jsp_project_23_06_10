@@ -2,6 +2,7 @@ package com.sbs.exam.jsp.board.servlet;
 
 import com.sbs.exam.jsp.board.Rq;
 import com.sbs.exam.jsp.board.controller.UsrArticleController;
+import com.sbs.exam.jsp.board.controller.UsrHomeController;
 import com.sbs.exam.jsp.board.util.MysqlUtil;
 import com.sbs.exam.jsp.board.util.SecSql;
 import jakarta.servlet.ServletException;
@@ -48,7 +49,11 @@ public class DispatcherServlet extends HttpServlet {
     switch (rq.getControllerTypeName()) {
       case "usr":
         UsrArticleController usrArticleController = new UsrArticleController();
+        UsrHomeController usrHomeController = new UsrHomeController();
         switch (rq.getControllerName()) {
+          case "home":
+            usrHomeController.performAction(rq);
+            break;
           case "article":
             usrArticleController.performAction(rq);
             break;

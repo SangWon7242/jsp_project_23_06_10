@@ -8,24 +8,45 @@ int loginedMemberId = (int) request.getAttribute("loginedMemberId");
 Map<String, Object> loginedMemberRow = (Map<String, Object>) request.getAttribute("loginedMemberRow");
 %>
 
+<header class="header navbar bg-base-100 border-b">
+  <div class="container mx-auto">
+    <a class="btn btn-ghost normal-case text-xl" href="../home/main">SBS_Board</a>
+    <nav class="menu-box-1 ml-auto">
+      <ul class="flex">
+        <li class="hover:text-blue-300 hover:underline">
+          <a class="flex h-full items-center px-3" href="../article/write">게시물 작성</a>
+        </li>
+        <li class="hover:text-blue-300 hover:underline">
+          <a class="flex h-full items-center px-3" href="../article/list">게시판</a>
+        </li>
+        <li class="hover:text-blue-300 hover:underline">
+          <% if(!isLogined) { %>
+          <a class="flex h-full items-center px-3" href="../member/join">회원가입</a>
+          <% } %>
+        </li>
+        <li class="hover:text-blue-300 hover:underline">
+          <% if(!isLogined) { %>
+          <a class="flex h-full items-center px-3" href="../member/login">로그인</a>
+          <% } %>
+
+          <% if(isLogined) { %>
+          "<%=loginedMemberRow.get("name")%>" 회원님 환영합니다.
+          <a class="flex h-full items-center px-3" href="../member/doLogout">로그아웃</a>
+          <% } %>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
 <div>
-  <a href="../article/write">게시물 작성</a>
+
   &nbsp;
-  <a href="../article/list">리스트로 이동</a>
 
 
-  <% if(!isLogined) { %>
-    <a href="../member/join">회원가입</a>
-  <% } %>&nbsp;
+
 </div>
 
 <div>
-  <% if(!isLogined) { %>
-    <a href="../member/login">로그인</a>
-  <% } %>
 
-  <% if(isLogined) { %>
-    "<%=loginedMemberRow.get("name")%>" 회원님 환영합니다.
-    <a href="../member/doLogout">로그아웃</a>
-  <% } %>
 </div>

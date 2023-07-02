@@ -68,8 +68,6 @@
     }
   </script>
 
-  <h1>회원가입</h1>
-
   <%@include file="../part/topBar.jspf"%>
 
   <form action="doJoin" method="POST" onsubmit="JoinForm_submit(this); return false;">
