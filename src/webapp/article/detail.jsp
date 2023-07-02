@@ -48,7 +48,7 @@
   </table>
 
   <div>
-    <a href="doDelete?id=${param.id}">삭제</a>
+    <a href="doDelete?id=${param.id}" onClick="if(!confirm('정말 삭제하시겠습니까?')) { return false; }">삭제</a>
     <a href="modify?id=${param.id}">수정</a>
     <a href="list">리스트</a>
   </div>

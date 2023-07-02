@@ -33,10 +33,25 @@ public class UsrArticleController extends Controller {
         actionModify(rq);
       case "doModify":
         actionDoModify(rq);
+      case "doDelete":
+        actionDoDelete(rq);
       default:
         rq.println("존재하지 않는 페이지 입니다.");
         break;
     }
+  }
+
+  private void actionDoDelete(Rq rq) {
+    int id = rq.getIntParam("id", 0);
+
+    if(id == 0) {
+      rq.historyBack("잘못 된 요청입니다.");
+      return;
+    }
+
+    ResultData deleteRd = articleService.delete(id);
+
+    rq.replace(deleteRd.getMsg(), "../article/list");
   }
 
   private void actionModify(Rq rq) {

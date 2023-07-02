@@ -50,4 +50,9 @@ public class ArticleService {
     articleRepository.modify(id, title, content);
     return ResultData.from("S-1", Util.f("%d번 게시물이 수정되었습니다.", id), "id", id);
   }
+
+  public ResultData delete(int id) {
+    articleRepository.delete(id);
+    return ResultData.from("S-1", Util.f("%d번 게시물이 삭제되었습니다.", id), "id", id);
+  }
 }
