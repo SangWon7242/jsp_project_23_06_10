@@ -1,6 +1,7 @@
 package com.sbs.exam.jsp.board.repository;
 
 import com.sbs.exam.jsp.board.dto.Article;
+import com.sbs.exam.jsp.board.dto.Member;
 import com.sbs.exam.jsp.board.util.MysqlUtil;
 import com.sbs.exam.jsp.board.util.SecSql;
 
@@ -30,5 +31,14 @@ public class MemberRepository {
     int id = MysqlUtil.insert(sql);
 
     return id;
+  }
+
+  public Member getMemberByLoginId(String loginId) {
+    SecSql sql = new SecSql();
+    sql.append("SELECT *");
+    sql.append("FROM `member`");
+    sql.append("WHERE loginId = ?", loginId);
+
+    return new Member(MysqlUtil.selectRow(sql));
   }
 }

@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ page import="com.sbs.exam.jsp.board.dto.Member" %>
 <%@ page import="java.util.Map" %>
 
 <%
 boolean isLogined = (boolean) request.getAttribute("isLogined");
 int loginedMemberId = (int) request.getAttribute("loginedMemberId");
-Map<String, Object> loginedMemberRow = (Map<String, Object>) request.getAttribute("loginedMemberRow");
+Member member = (Member) request.getAttribute("member");
 %>
 
 <header class="header navbar bg-base-100 border-b">
@@ -30,7 +31,7 @@ Map<String, Object> loginedMemberRow = (Map<String, Object>) request.getAttribut
           <% } %>
 
           <% if(isLogined) { %>
-          "<%=loginedMemberRow.get("name")%>" 회원님 환영합니다.
+          "<%= member.getName() %>" 회원님 환영합니다.
           <a class="flex h-full items-center px-3" href="../member/doLogout">로그아웃</a>
           <% } %>
         </li>

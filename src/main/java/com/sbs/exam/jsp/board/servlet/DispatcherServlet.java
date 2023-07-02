@@ -4,6 +4,7 @@ import com.sbs.exam.jsp.board.Rq;
 import com.sbs.exam.jsp.board.controller.UsrArticleController;
 import com.sbs.exam.jsp.board.controller.UsrHomeController;
 import com.sbs.exam.jsp.board.controller.UsrMemberController;
+import com.sbs.exam.jsp.board.dto.Member;
 import com.sbs.exam.jsp.board.util.MysqlUtil;
 import com.sbs.exam.jsp.board.util.SecSql;
 import jakarta.servlet.ServletException;
@@ -26,25 +27,24 @@ public class DispatcherServlet extends HttpServlet {
     Rq rq = new Rq(req, resp);
 
     // 모든 요청을 들어가기 전에 무조건 해야 하는 일 시작
-    HttpSession session = req.getSession();
 
     boolean isLogined = false;
     int loginedMemberId = -1;
-    Map<String, Object> loginedMemberRow = null;
+    Member member = null;
 
-    if (session.getAttribute("loginedMemberId") != null) {
-      loginedMemberId = (int) session.getAttribute("loginedMemberId");
+    if (rq.getSessionAttr("loginedMemberId") != null) {
+      loginedMemberId = rq.getSessionAttr("loginedMemberId");
       isLogined = true;
 
       SecSql sql = new SecSql();
       sql.append("SELECT * FROM `member`");
       sql.append("WHERE id = ?", loginedMemberId);
-      loginedMemberRow = MysqlUtil.selectRow(sql);
+      member = (Member) MysqlUtil.selectRow(sql);
     }
 
     req.setAttribute("isLogined", isLogined);
     req.setAttribute("loginedMemberId", loginedMemberId);
-    req.setAttribute("loginedMemberRow", loginedMemberRow);
+    req.setAttribute("member", member);
     // 모든 요청을 들어가기 전에 무조건 해야 하는 일 끝
 
     switch (rq.getControllerTypeName()) {
