@@ -4,6 +4,7 @@ import com.sbs.exam.jsp.board.dto.Article;
 import com.sbs.exam.jsp.board.dto.ResultData;
 import com.sbs.exam.jsp.board.repository.ArticleRepository;
 import com.sbs.exam.jsp.board.util.Util;
+import org.w3c.dom.html.HTMLImageElement;
 
 import java.util.List;
 
@@ -43,5 +44,10 @@ public class ArticleService {
 
   public Article getForPrintArticleById(int id) {
     return articleRepository.getForPrintArticleById(id);
+  }
+
+  public ResultData modify(int id, String title, String content) {
+    articleRepository.modify(id, title, content);
+    return ResultData.from("S-1", Util.f("%d번 게시물이 수정되었습니다.", id), "id", id);
   }
 }

@@ -28,11 +28,57 @@ public class UsrArticleController extends Controller {
       case "doWrite":
         actionDoWrite(rq);
       case "detail":
-        actionDetail(rq);        
+        actionDetail(rq);
+      case "modify":
+        actionModify(rq);
+      case "doModify":
+        actionDoModify(rq);
       default:
         rq.println("존재하지 않는 페이지 입니다.");
         break;
     }
+  }
+
+  private void actionModify(Rq rq) {
+    int id = rq.getIntParam("id", 0);
+
+    if(id == 0) {
+      rq.historyBack("잘못 된 요청입니다.");
+      return;
+    }
+
+    Article article = articleService.getForPrintArticleById(id);
+    rq.setAttr("article", article);
+
+    rq.jsp("../article/modify");
+  }
+
+  private void actionDoModify(Rq rq) {
+    int id = rq.getIntParam("id", 0);
+    String title = rq.getParam("title", "");
+    String content = rq.getParam("content", "");
+    String redirectUri = rq.getParam("redirectUri", "../member/list");
+
+    if(id == 0) {
+      rq.historyBack("잘못 된 요청입니다.");
+      return;
+    }
+
+    if(title.length() == 0) {
+      rq.historyBack("제목을 입력해주세요.");
+      return;
+    }
+
+    if(content.length() == 0) {
+      rq.historyBack("내용을 입력해주세요.");
+      return;
+    }
+
+    redirectUri = redirectUri.replace("[NEW_ID]", id + "");
+
+
+    ResultData modifyRd = articleService.modify(id, title, content);
+    rq.replace(modifyRd.getMsg(), redirectUri);
   }
 
   private void actionDetail(Rq rq) {

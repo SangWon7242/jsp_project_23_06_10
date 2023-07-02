@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ page import="java.util.Map" %>
+<%@ page import="com.sbs.exam.jsp.board.dto.Article" %>
 
 <%
-Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("articleRow");
+Article article = (Article) request.getAttribute("article");
 %>
 
 <!doctype html>
@@ -22,13 +22,14 @@ Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("art
   <%@include file="../part/topBar.jspf"%>
 
   <form action="doModify" method="POST">
+    <input type="hidden" name="redirectUri" value="../article/detail?id=[NEW_ID]" />
     <input type="hidden" name="id" value="<%= Integer.parseInt(request.getParameter("id")) %>">
 
     <div>
-      제목 : <input autocomplete="off" type="text" name="title" placeholder="제목을 입력해주세요." value="<%= (String) articleRow.get("title") %>">
+      제목 : <input autocomplete="off" type="text" name="title" placeholder="제목을 입력해주세요." value="<%= article.getTitle() %>">
     </div>
     <div>
-      내용 : <textarea autocomplete="off" type="text" name="content" placeholder="내용을 입력해주세요."><%= (String) articleRow.get("content") %></textarea>
+      내용 : <textarea autocomplete="off" type="text" name="content" placeholder="내용을 입력해주세요."><%= article.getContent() %></textarea>
     </div>
 
     <div>
